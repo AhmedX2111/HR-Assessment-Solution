@@ -20,3 +20,131 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+/* Styles for the sidebar */
+#sidebar {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    height: 100vh;
+}
+
+    #sidebar h4 {
+        margin-bottom: 1rem;
+    }
+
+    #sidebar .nav-link {
+        padding: 0.5rem 1rem;
+    }
+
+        #sidebar .nav-link.active {
+            font-weight: bold;
+            background-color: #e9ecef;
+        }
+
+
+
+
+
+.highlight {
+    background-color: yellow;
+}
+
+
+.icon-button ion-icon {
+    font-size: 1.5rem; /* Adjust size as needed */
+}
+
+.btn-info ion-icon {
+    color: #17a2b8; /* Color for info button */
+}
+
+.btn-warning ion-icon {
+    color: #ffc107; /* Color for warning button */
+}
+
+.btn-danger ion-icon {
+    color: #dc3545; /* Color for danger button */
+}
+
+
+
+.table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: auto; /* Allows table to adjust column widths dynamically */
+}
+
+    .table th, .table td {
+        border: 1px solid #ddd;
+        padding: 12px; /* Adjusted padding for better readability */
+        text-align: left;
+        word-wrap: break-word; /* Ensure content doesn't overflow */
+    }
+
+    .table th {
+        background-color: #f4f4f4;
+        border-bottom: 2px solid #333;
+    }
+
+    .table tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .table tbody tr:hover {
+        background-color: #f1f1f1;
+    }
+
+.highlight {
+    background-color: yellow;
+}
+
+/* Optional: Add a max-width to ensure the table fits within its container */
+.table-container {
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+
+
+
+/* Sidebar styling */
+#sidebar {
+    background-color: #f8f9fa;
+    border-right: 1px solid #dee2e6;
+    height: 100vh;
+    padding: 1rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+    #sidebar h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+    }
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1.25rem;
+    color: #212529;
+    text-decoration: none;
+}
+
+    .nav-link.active {
+        background-color: #e9ecef;
+        color: #007bff;
+    }
+
+    .nav-link ion-icon {
+        margin-right: 0.5rem;
+    }
+
+.nav-item.dropdown .dropdown-menu {
+    border-radius: 0;
+    margin-top: 0;
+}
+
+.dropdown-item:hover {
+    background-color: #f1f1f1;
+}

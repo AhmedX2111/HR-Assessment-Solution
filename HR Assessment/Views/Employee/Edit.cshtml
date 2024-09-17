@@ -9,21 +9,21 @@
 <h4>Employee</h4>
 <hr />
 
-<form asp-action="Edit">
+<form asp-action="Edit" id="editForm">
     <input type="hidden" asp-for="Id" />
-    
+
     <div class="form-group">
         <label asp-for="FullName" class="control-label"></label>
         <input asp-for="FullName" class="form-control" />
         <span asp-validation-for="FullName" class="text-danger"></span>
     </div>
-    
+
     <div class="form-group">
         <label asp-for="Email" class="control-label"></label>
         <input asp-for="Email" class="form-control" />
         <span asp-validation-for="Email" class="text-danger"></span>
     </div>
-    
+
     <div class="form-group">
         <label asp-for="Phone" class="control-label"></label>
         <input asp-for="Phone" class="form-control" />
@@ -40,40 +40,62 @@
         </select>
         <span asp-validation-for="Gender" class="text-danger"></span>
     </div>
-    
+
     <div class="form-group">
         <label asp-for="Position" class="control-label"></label>
         <input asp-for="Position" class="form-control" />
         <span asp-validation-for="Position" class="text-danger"></span>
     </div>
-    
+
     <div class="form-group">
         <label asp-for="Address" class="control-label"></label>
         <textarea asp-for="Address" class="form-control" rows="3"></textarea>
         <span asp-validation-for="Address" class="text-danger"></span>
     </div>
-    
+
     <div class="form-group">
         <label asp-for="HireDate" class="control-label"></label>
         <input asp-for="HireDate" class="form-control" type="date" />
         <span asp-validation-for="HireDate" class="text-danger"></span>
     </div>
-    
+
     <div class="form-group">
         <label asp-for="Birthday" class="control-label"></label>
         <input asp-for="Birthday" class="form-control" type="date" />
         <span asp-validation-for="Birthday" class="text-danger"></span>
     </div>
-    
+
     <div class="form-group">
         <label asp-for="Note" class="control-label"></label>
         <textarea asp-for="Note" class="form-control" rows="3"></textarea>
         <span asp-validation-for="Note" class="text-danger"></span>
     </div>
-    
+
     <div class="form-group">
         <input type="submit" value="Save" class="btn btn-primary" />
     </div>
 </form>
 
 <a href="@Url.Action("Index")" class="btn btn-secondary">Back to List</a>
+
+@section Scripts {
+    <script src="~/lib/sweetalert2/sweetalert2.all.min.js"></script>
+    <script>
+        document.getElementById('editForm').addEventListener('submit', function (event) {
+           // event.preventDefault(); // Prevent the default form submission
+
+            // Use SweetAlert to show a success message
+            Swal.fire({
+                title: 'Success!',
+                text: 'Employee updated successfully.',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Optionally redirect after confirmation
+                    window.location.href = '@Url.Action("Index")';
+                }
+            });
+        });
+    </script>
+}

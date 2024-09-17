@@ -4,64 +4,149 @@
     ViewData["Title"] = "Employees";
 }
 
-<h2>Employees</h2>
+<!-- Include Bootstrap CSS and JS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
-<p>
-    <a href="@Url.Action("Create")" class="btn btn-primary">Create New</a>
-</p>
+<!-- Include Ionicons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ionicons@5.5.2/dist/ionicons/ionicons.css">
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Full Name
-            </th>
-            <th>
-                Email
-            </th>
-            <th>
-                Phone
-            </th>
-            <th>
-                Gender
-            </th>
-            <th>
-                Position
-            </th>
-            <th>
-                Hire Date
-            </th>
-            <th>
-                Birthday
-            </th>
-            <th>
-                Address
-            </th>
-            <th>
-                Note
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@Html.DisplayFor(modelItem => item.FullName)</td>
-                <td>@Html.DisplayFor(modelItem => item.Email)</td>
-                <td>@Html.DisplayFor(modelItem => item.Phone)</td>
-                <td>@Html.DisplayFor(modelItem => item.Gender)</td>
-                <td>@Html.DisplayFor(modelItem => item.Position)</td>
-                <td>@Html.DisplayFor(modelItem => item.HireDate)</td>
-                <td>@Html.DisplayFor(modelItem => item.Birthday)</td>
-                <td>@Html.DisplayFor(modelItem => item.Address)</td>
-                <td>@Html.DisplayFor(modelItem => item.Note)</td>
-                <td>
-                    <a href="@Url.Action("Details", new { id = item.Id })" class="btn btn-info">Details</a>
-                    <a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-warning">Edit</a>
-                    <a href="@Url.Action("Delete", new { id = item.Id })" class="btn btn-danger">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light border-end">
+            <div class="position-sticky">
+                <h4 class="text-center py-3">Hero Assessment</h4>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="@Url.Action("Index")">
+                            <ion-icon name="home-outline"></ion-icon> Home
+                        </a>
+                    </li>
+                    <!-- Dropdown Button -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="employeesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <ion-icon name="people-outline"></ion-icon> Employees
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="employeesDropdown">
+                            <li><a class="dropdown-item" href="@Url.Action("Create")">Add</a></li>
+                            <li><a class="dropdown-item" href="#">Export</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main role="main" class="col-md-9 ms-sm-auto col-lg-10 px-4">
+            <h2>@ViewData["Title"]</h2>
+
+            <!-- Record Counter and Search Bar -->
+            <div class="d-flex justify-content-between mb-3">
+                <div>
+                    <label for="recordsPerPage" class="form-label">Records per page:</label>
+                    <select id="recordsPerPage" class="form-select form-select-sm" aria-label="Records per page">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                    </select>
+                </div>
+                <div>
+                    <input type="text" id="searchBox" class="form-control form-control-sm" placeholder="Search..." />
+                </div>
+            </div>
+
+            <p>
+                <a href="@Url.Action("Create")" class="btn btn-primary">Create New</a>
+            </p>
+
+            <!-- Table Container with Scrolling -->
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Full Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Gender</th>
+                            <th>Position</th>
+                            <th>Hire Date</th>
+                            <th>Birthday</th>
+                            <th>Address</th>
+                            <th>Note</th>
+                            <th>Manage</th>
+                        </tr>
+                    </thead>
+                    <tbody id="employeeTableBody">
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.FullName)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Phone)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Gender)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Position)</td>
+                                <td>@Html.DisplayFor(modelItem => item.HireDate)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Birthday)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Address)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Note)</td>
+                                <td>
+                                    <a href="@Url.Action("Details", new { id = item.Id })" class="btn btn-info" title="View Details">
+                                        <ion-icon name="search-outline"></ion-icon>
+                                    </a>
+                                    <a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-warning" title="Edit">
+                                        <ion-icon name="pencil-outline"></ion-icon>
+                                    </a>
+                                    <a href="@Url.Action("Delete", new { id = item.Id })" class="btn btn-danger" title="Delete">
+                                        <ion-icon name="remove-circle-outline"></ion-icon>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </main>
+
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialize Bootstrap dropdowns
+            var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'));
+            dropdownElementList.map(function (dropdownToggleEl) {
+                return new bootstrap.Dropdown(dropdownToggleEl);
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const searchBox = document.getElementById("searchBox");
+            const employeeTableBody = document.getElementById("employeeTableBody");
+
+            searchBox.addEventListener("input", function () {
+                const searchQuery = this.value.toLowerCase();
+                const rows = employeeTableBody.querySelectorAll("tr");
+
+                rows.forEach(row => {
+                    const cells = row.querySelectorAll("td");
+                    let rowContainsSearchQuery = false;
+
+                    cells.forEach(cell => {
+                        const cellText = cell.textContent;
+                        const highlightedText = cellText
+                            .replace(new RegExp(searchQuery, 'gi'), match => `<span class="highlight">${match}</span>`);
+
+                        if (highlightedText !== cell.innerHTML) {
+                            rowContainsSearchQuery = true;
+                        }
+                        cell.innerHTML = highlightedText;
+                    });
+
+                    row.style.display = rowContainsSearchQuery ? "" : "none";
+                });
+            });
+        });
+    </script>
+}

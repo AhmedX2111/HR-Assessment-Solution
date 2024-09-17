@@ -64,7 +64,7 @@
         </dd>
     </dl>
 
-    <form asp-action="DeleteConfirmed" method="post">
+    <form asp-action="DeleteConfirmed" method="post" id="deleteForm">
         <input type="hidden" asp-for="Id" />
         <div class="form-group">
             <input type="submit" value="Delete" class="btn btn-danger" />
@@ -72,3 +72,25 @@
         </div>
     </form>
 </div>
+
+@section Scripts {
+    <script src="~/lib/sweetalert2/sweetalert2.all.min.js"></script>
+    <script>
+        document.getElementById('deleteForm').addEventListener('submit', function (event) {
+            //event.preventDefault();
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "This action cannot be undone.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Submit the form if the user confirms
+                    document.getElementById('deleteForm').submit();
+                }
+            });
+        });
+    </script>
+}
