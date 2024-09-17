@@ -17,5 +17,6 @@ namespace HR_Assessment.Data
             // Additional configurations, if needed, for Employee or Department models
         }
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Department> Departments { get; set; }
     }
 }

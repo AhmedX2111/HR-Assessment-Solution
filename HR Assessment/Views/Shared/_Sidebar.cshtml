@@ -1,0 +1,38 @@
+﻿@* Views/Shared/_Sidebar.cshtml *@
+
+<!-- Sidebar -->
+<nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light border-end">
+    <div class="position-sticky">
+        <h4 class="text-center py-3">Hero Assessment</h4>
+        <ul class="nav flex-column">
+            <!-- Home Link -->
+            <li class="nav-item">
+                <a class="nav-link active" href="@Url.Action("Index", "Home")">
+                    <ion-icon name="home-outline"></ion-icon> Home
+                </a>
+            </li>
+
+            <!-- Employees Dropdown -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="employeesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <ion-icon name="people-outline"></ion-icon> Employees
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="employeesDropdown">
+                    <li><a class="dropdown-item" href="@Url.Action("Index", "Employee")">View Employees</a></li>
+                    <li><a class="dropdown-item" href="@Url.Action("Create", "Employee")">Add Employee</a></li>
+                </ul>
+            </li>
+
+            <!-- Departments Dropdown -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="departmentsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <ion-icon name="business-outline"></ion-icon> Departments
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="departmentsDropdown">
+                    <li><a class="dropdown-item" href="@Url.Action("Index", "Department")">View Departments</a></li>
+                    <li><a class="dropdown-item" href="@Url.Action("Create", "Department")">Add Department</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>

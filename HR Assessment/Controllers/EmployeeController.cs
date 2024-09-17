@@ -16,8 +16,14 @@ namespace HR_Assessment.Controllers
         }
 
         // GET: Employee/Dashboard
-        public async Task<IActionResult> Dashboard()
+        public async Task<IActionResult> Dashboard(string viewType = "Employees")
         {
+            if (viewType == "Departments")
+            {
+                // Fetch department data and return Department's Index view
+                return View("Index", await _context.Departments.ToListAsync());
+            }
+
             // Reuse the Index view
             return View("Index", await _context.Employees.ToListAsync());
         }

@@ -13,29 +13,8 @@
 
 <div class="container-fluid">
     <div class="row">
-        <!-- Sidebar -->
-        <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light border-end">
-            <div class="position-sticky">
-                <h4 class="text-center py-3">Hero Assessment</h4>
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="@Url.Action("Index")">
-                            <ion-icon name="home-outline"></ion-icon> Home
-                        </a>
-                    </li>
-                    <!-- Dropdown Button -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="employeesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <ion-icon name="people-outline"></ion-icon> Employees
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="employeesDropdown">
-                            <li><a class="dropdown-item" href="@Url.Action("Create")">Add</a></li>
-                            <li><a class="dropdown-item" href="#">Export</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+        <!-- Include Sidebar Partial -->
+        @await Html.PartialAsync("_Sidebar")
 
         <!-- Main Content -->
         <main role="main" class="col-md-9 ms-sm-auto col-lg-10 px-4">
@@ -113,40 +92,33 @@
 
 @section Scripts {
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Initialize Bootstrap dropdowns
-            var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'));
-            dropdownElementList.map(function (dropdownToggleEl) {
-                return new bootstrap.Dropdown(dropdownToggleEl);
-            });
-        });
-
         document.addEventListener("DOMContentLoaded", function () {
-            const searchBox = document.getElementById("searchBox");
-            const employeeTableBody = document.getElementById("employeeTableBody");
-
-            searchBox.addEventListener("input", function () {
-                const searchQuery = this.value.toLowerCase();
-                const rows = employeeTableBody.querySelectorAll("tr");
-
-                rows.forEach(row => {
-                    const cells = row.querySelectorAll("td");
-                    let rowContainsSearchQuery = false;
-
-                    cells.forEach(cell => {
-                        const cellText = cell.textContent;
-                        const highlightedText = cellText
-                            .replace(new RegExp(searchQuery, 'gi'), match => `<span class="highlight">${match}</span>`);
-
-                        if (highlightedText !== cell.innerHTML) {
-                            rowContainsSearchQuery = true;
-                        }
-                        cell.innerHTML = highlightedText;
+            // Function to load content dynamically
+            function loadContent(url) {
+                fetch(url)
+                    .then(response => response.text())
+                    .then(html => {
+                        document.getElementById("main-content").innerHTML = html;
+                    })
+                    .catch(error => {
+                        console.error('Error loading content:', error);
+                        document.getElementById("main-content").innerHTML = "<p class='text-danger'>Failed to load content.</p>";
                     });
+            }
 
-                    row.style.display = rowContainsSearchQuery ? "" : "none";
-                });
+            // Event listeners for sidebar links
+            document.getElementById("viewEmployeesLink").addEventListener("click", function (e) {
+                e.preventDefault();
+                loadContent("@Url.Action("Index", "Employee")");
+            });
+
+            document.getElementById("viewDepartmentsLink").addEventListener("click", function (e) {
+                e.preventDefault();
+                loadContent("@Url.Action("Index", "Department")");
             });
         });
     </script>
 }
+
+
+
