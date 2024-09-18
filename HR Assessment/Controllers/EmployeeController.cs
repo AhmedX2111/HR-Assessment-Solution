@@ -142,12 +142,13 @@ namespace HR_Assessment.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var employee = await _context.Employees.FindAsync(id);
-            if (employee != null)
+            if (employee == null)
             {
-                _context.Employees.Remove(employee);
-                await _context.SaveChangesAsync();
+                return NotFound();
             }
 
+            _context.Employees.Remove(employee);
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 

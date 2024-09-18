@@ -123,17 +123,23 @@ namespace HR_Assessment.Controllers
 			return View(department);
 		}
 
-		// POST: Departments/Delete/5
-		[HttpPost, ActionName("Delete")]
-		public async Task<IActionResult> DeleteConfirmed(int id)
-		{
-			var department = await _context.Departments.FindAsync(id);
-			_context.Departments.Remove(department);
-			await _context.SaveChangesAsync();
-			return RedirectToAction(nameof(Index));
-		}
+        // POST: Departments/Delete/5
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var department = await _context.Departments.FindAsync(id);
+            if (department == null)
+            {
+                return NotFound();
+            }
 
-		private bool DepartmentExists(int id)
+            _context.Departments.Remove(department);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+
+        private bool DepartmentExists(int id)
 		{
 			return _context.Departments.Any(e => e.Id == id);
 		}
